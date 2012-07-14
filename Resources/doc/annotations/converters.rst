@@ -63,6 +63,30 @@ be configured with the ``entity_manager`` option::
     {
     }
 
+If the placeholder has not the same name as the primary key, pass the ``id``
+option::
+
+    /**
+     * @Route("/blog/{post_id}")
+     * @ParamConverter("post", class="SensioBlogBundle:Post", options={"id" = "post_id"})
+     */
+    public function showAction(Post $post)
+    {
+    }
+
+This also allows you to have multiple converters in one action::
+
+    /**
+     * @Route("/blog/{id}/comments/{comment_id}")
+     * @ParamConverter("comment", class="SensioBlogBundle:Comment", options={"id" = "comment_id"})
+     */
+    public function showAction(Post $post, Comment $comment)
+    {
+    }
+
+In the example above, the post parameter is handled automatically, but the comment is 
+configured with the annotation since they can not both follow the default convention.
+
 Creating a Converter
 --------------------
 
